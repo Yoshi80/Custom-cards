@@ -3,12 +3,11 @@
 #### 1. How to install ? 
 
  - On the top right corner of the file list, there should be a "Clone or download" button. Click on it, then choose "Download ZIP"
- - Inside the ZIP file, there is a folder. Inside that folder, you'll find the exact same content as the git repository. Those are the files you want to unzip.
+ - Inside the ZIP file, there is a folder. Inside that folder, you'll find the exact same content as the git repository. The only file you want to unzip is the "configs" folder.
 
 #### 2. How to add the cards to my game ?
 
-Simply merge the contents of the pics, script and expansion you've just downloaded with the ones already present in your game folder.
-For the archetype names to show up in the editor, also merge the config folder.
+Since the only folder you unzipped was the configs folder. All you have to do is merge it with the one in your edopro folder. After that, the cards will be downloaded and updated automatically.
 If you want some pre-constructed Decks using custom cards, also merge the deck folder.
 
 #### 3. How to play with those cards ?
