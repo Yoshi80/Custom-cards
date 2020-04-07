@@ -3,8 +3,8 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--fusion pendulum
 	c:EnableReviveLimit()
-	aux.EnablePendulumAttribute(c,false)
-	aux.AddFusionProcMix(c,true,true,aux.FilterBoolFunction(Card.IsRace,RACE_FIEND),aux.FilterBoolFunctionEx(Card.IsType,TYPE_PENDULUM))
+	Pendulum.AddProcedure(c,false)
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunction(Card.IsRace,RACE_FIEND),aux.FilterBoolFunctionEx(Card.IsType,TYPE_PENDULUM))
 	--splimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)

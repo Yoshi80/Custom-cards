@@ -3,7 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--fusion summon
 	c:EnableReviveLimit()
-	aux.AddFusionProcMix(c,true,true,50000239,aux.FilterBoolFunction(Card.IsFusionSetCard,0x70d))
+	Fusion.AddProcMix(c,true,true,50000239,aux.FilterBoolFunctionEx(Card.IsSetCard,0x70d))
 	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))

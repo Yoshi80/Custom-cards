@@ -2,8 +2,8 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--pendulum summon
-	aux.EnablePendulumAttribute(c,false)
-	aux.AddFusionProcMix(c,true,true,aux.FilterBoolFunction(Card.IsType,TYPE_FUSION),s.ffilter)
+	Pendulum.AddProcedure(c,false)
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunction(Card.IsType,TYPE_FUSION),s.ffilter)
 	--self destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetCountLimit(1,500003181)
+	e2:SetCountLimit(1,id)
 	e2:SetTarget(s.atktg)
 	e2:SetOperation(s.atkop1)
 	c:RegisterEffect(e2)
@@ -65,11 +65,9 @@ function s.initial_effect(c)
 	e7:SetOperation(s.desop)
 	c:RegisterEffect(e7)
 end
-
 function s.ffilter(c,fc,sumtype,tp)
 	return c:IsType(TYPE_PENDULUM,fc,sumtype,tp) and c:IsLevel(10)
 end
-
 function s.sdfilter(c)
 	return c:IsFaceup() and c:IsCode(50000312)
 end
@@ -77,7 +75,6 @@ function s.sdcon(e)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
 		and not Duel.IsExistingMatchingCard(s.sdfilter,0,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 end
-
 function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,0,1,nil) end
@@ -97,14 +94,12 @@ function s.atkop1(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
 function s.immtg(e,c)
 	return c:IsCode(50000312) or c==e:GetHandler()
 end
 function s.tgvalue(e,re,rp)
 	return rp~=e:GetHandlerPlayer()
 end
-
 function s.espfilter(c,e,tp)
 	return c:IsType(TYPE_FUSION) and c:IsCanBeSpecialSummoned(e,124,tp,true,false)
 end
@@ -123,7 +118,6 @@ function s.espop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(g,124,tp,tp,true,false,POS_FACEUP)
 	end
 end
-
 function s.pencon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
@@ -138,7 +132,6 @@ function s.penop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.MoveToField(c,tp,tp,LOCATION_PZONE,POS_FACEUP,true)
 	end
 end
-
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler():GetBattleTarget()
 	return tc and tc:IsRelateToBattle()

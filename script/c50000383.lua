@@ -3,7 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcMix(c,true,true,s.ffilter,aux.FilterBoolFunctionEx(Card.IsType,TYPE_EFFECT))
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsType,TYPE_EFFECT),s.ffilter)
 	--Remove
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
@@ -31,7 +31,6 @@ end
 function s.ffilter(c,fc,sumtype,tp)
 	return c:IsRace(RACE_REPTILE,fc,sumtype,tp) and c:GetLevel()>=5
 end
-
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end
@@ -51,7 +50,6 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(tc,POS_FACEDOWN,REASON_EFFECT)
 	end
 end
-
 function s.filter(c,tp)
 	return c:GetSummonPlayer()==tp and c:IsFaceup()
 end

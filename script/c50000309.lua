@@ -3,7 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcMix(c,true,true,aux.FilterBoolFunction(Card.IsRace,RACE_FIEND),aux.FilterBoolFunctionEx(Card.IsLevelAbove,6))
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunction(Card.IsRace,RACE_FIEND),aux.FilterBoolFunctionEx(Card.IsLevelAbove,6))
 	--banish
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE)

@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddFusionProcMixN(c,true,true,s.mfilter2,3)
+	Fusion.AddProcMixN(c,true,true,s.mfilter2,3)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -45,11 +45,9 @@ function s.initial_effect(c)
 	e5:SetOperation(s.desop)
 	c:RegisterEffect(e5)
 end
-
 function s.mfilter2(c)
-	return c:IsFusionCode(50000243) or c:IsFusionCode(50000246)
+	return c:IsCode(50000243) or c:IsCode(50000246)
 end
-
 function s.splimit(e,se,sp,st)
 	return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e,se,sp,st)
 end
@@ -62,7 +60,6 @@ function s.indcon(e)
 	local mat=g:FilterCount(s.lvfilter,nil)
 	return mat>=1
 end
-
 function s.indcon2(e)
 	local c=e:GetHandler()
 	local g=c:GetMaterial()
@@ -86,8 +83,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-
-
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=c:GetMaterial()

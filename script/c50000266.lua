@@ -1,10 +1,10 @@
 --The Calamity: Ganon
 local s,id=GetID()
 function s.initial_effect(c)
-		--fusion material
+	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcMix(c,true,true,50000265,s.ffilter)
-	aux.AddContactFusion(c,s.contactfil,s.contactop,true)
+	Fusion.AddProcMix(c,true,true,50000265,s.ffilter)
+	Fusion.AddContactProc(c,s.contactfil,s.contactop,true)
 	--spsummon limit
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
@@ -40,7 +40,6 @@ function s.initial_effect(c)
 	e4:SetOperation(s.atop)
 	c:RegisterEffect(e4)
 end
-
 function s.ffilter(c,fc,sumtype,tp)
 	return c:IsAttribute(ATTRIBUTE_DARK,fc,sumtype,tp) and c:GetLevel()>=7
 end
@@ -50,7 +49,6 @@ end
 function s.contactop(g)
 	Duel.Remove(g,POS_FACEUP,REASON_COST+REASON_MATERIAL)
 end
-
 function s.hspcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL
 end
@@ -70,13 +68,11 @@ end
 function s.distarget(e,c)
 	return c:IsType(TYPE_LINK)
 end
-
 function s.atkval(e,c)
 	local rec=c:GetLink()*500
 	if rec<0 then rec=0 end
 	return rec*-1
 end
-
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
