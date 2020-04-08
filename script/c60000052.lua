@@ -3,7 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	-- Xyz Summon
 	c:EnableReviveLimit()
-	aux.AddXyzProcedure(c,nil,2,2)
+	Xyz.AddProcedure(c,nil,2,2)
 	--cannot be target
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

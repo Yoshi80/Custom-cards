@@ -1,15 +1,15 @@
 -- Omni-Hero : Four Arms
-
-function c50000155.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_WARRIOR),4,2)
+	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_WARRIOR),4,2)
 	c:EnableReviveLimit()
 	--atk down
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_BATTLED)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetOperation(c50000155.atkdn)
+	e1:SetOperation(s.atkdn)
 	c:RegisterEffect(e1)
 	--attack
 	local e2=Effect.CreateEffect(c)
@@ -18,14 +18,13 @@ function c50000155.initial_effect(c)
 	e2:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
-	e2:SetCost(c50000155.cost)
-	e2:SetCondition(c50000155.condition)
-	e2:SetTarget(c50000155.target)
-	e2:SetOperation(c50000155.operation)
+	e2:SetCost(s.cost)
+	e2:SetCondition(s.condition)
+	e2:SetTarget(s.target)
+	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-
-function c50000155.atkdn(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.atkdn(e,tp,eg,ep,ev,re,r,rp,chk)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	if a:IsControler(tp) and a:IsRace(RACE_WARRIOR) then
@@ -34,18 +33,17 @@ function c50000155.atkdn(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.Destroy(a,REASON_EFFECT)
 	end
 end
-
-function c50000155.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function c50000155.condition(e,tp,eg,ep,ev,re,r,rp)
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp and Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==1
 end
-function c50000155.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 end
-function c50000155.operation(e,tp,eg,ep,ev,re,r,rp)
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)

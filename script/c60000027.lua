@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_PLANT),6,3)
+	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_PLANT),6,3)
 	c:EnableReviveLimit()
 	--indes
 	local e1=Effect.CreateEffect(c)
@@ -22,7 +22,7 @@ function s.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,600000271)
+	e3:SetCountLimit(1,id)
 	e3:SetCost(s.cost)
 	e3:SetTarget(s.target)
 	e3:SetOperation(s.operation)
@@ -34,14 +34,13 @@ function s.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e4:SetCountLimit(1,600000272)
+	e4:SetCountLimit(1,id+100)
 	e4:SetCondition(s.spcon)
 	e4:SetCost(s.atkcost)
 	e4:SetOperation(s.atkop)
 	c:RegisterEffect(e4)
 end
 s.listed_names={60000026}
-
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
@@ -62,7 +61,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Damage(1-tp,500*ct,REASON_EFFECT)
 	end
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttacker():IsControler(1-tp) and e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,60000026)
 end

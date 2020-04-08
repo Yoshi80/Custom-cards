@@ -2,8 +2,8 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--pendulum xyz
-	aux.EnablePendulumAttribute(c,false)
-	aux.AddXyzProcedure(c,nil,8,2)
+	Pendulum.AddProcedure(c,false)
+	Xyz.AddProcedure(c,nil,8,2)
 	c:EnableReviveLimit()
 	--splimit
 	local e1=Effect.CreateEffect(c)
@@ -17,7 +17,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--damage
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(64207696,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_DAMAGE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 	--pendulum
 	local e6=Effect.CreateEffect(c)
-	e6:SetDescription(aux.Stringid(100219001,3))
+	e6:SetDescription(aux.Stringid(id,3))
 	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e6:SetCode(EVENT_DESTROYED)
 	e6:SetProperty(EFFECT_FLAG_DELAY)
@@ -63,14 +63,12 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.pendulum_level=8
-
 function s.splimcon(e)
 	return not e:GetHandler():IsForbidden()
 end
 function s.splimit(e,c,tp,sumtp,sumpos)
 	return not c:IsSetCard(0x701) and bit.band(sumtp,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
-
 function s.damcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=eg:GetFirst()
@@ -88,11 +86,9 @@ function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Damage(p,d,REASON_EFFECT)
 end
-
 function s.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:IsAttackBelow(1000)
 end
-
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
@@ -117,7 +113,6 @@ function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
 end
-
 function s.pencon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup() and rp~=tp
