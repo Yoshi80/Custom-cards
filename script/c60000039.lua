@@ -2,8 +2,8 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--pendulum synchro
-	aux.EnablePendulumAttribute(c,false)
-	aux.AddSynchroProcedure(c,s.tfilter,1,1,aux.NonTuner(nil),1,99)
+	Pendulum.AddProcedure(c,false)
+	Synchro.AddProcedure(c,s.tfilter,1,1,Synchro.NonTuner(nil),1,99)
 	c:EnableReviveLimit()
 	--salvage
 	local e1=Effect.CreateEffect(c)
@@ -54,7 +54,6 @@ end
 function s.tfilter(c)
 	return c:IsSetCard(0x701)
 end
-
 function s.filter(c)
 	return c:IsType(TYPE_SPELL) and c:IsSetCard(0x701) and c:IsAbleToHand()
 end
@@ -72,7 +71,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,tc)
 	end
 end
-
 function s.lvlcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
@@ -89,7 +87,6 @@ function s.lvop(e,tp,eg,ep,ev,re,r,rp)
 	if #g==0 then return end
 	Duel.SendtoGrave(g,REASON_EFFECT)
 end
-
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and rp~=tp and Duel.IsChainNegatable(ev)
 end
@@ -109,7 +106,6 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(eg,POS_FACEUP,REASON_EFFECT)
 	end
 end
-
 function s.pencon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup() and rp~=tp

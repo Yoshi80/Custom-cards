@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,nil,1,1,aux.NonTunerEx(Card.IsRace,RACE_CYBERSE),1,99)
+	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTunerEx(Card.IsRace,RACE_CYBERSE),1,99)
 	c:EnableReviveLimit()
 	--
 	local e1=Effect.CreateEffect(c)
@@ -10,7 +10,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e1:SetCountLimit(1,500003061)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.thcon)
 	e1:SetTarget(s.thtg)
 	e1:SetOperation(s.thop)
@@ -34,12 +34,11 @@ function s.initial_effect(c)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e3:SetHintTiming(TIMING_DAMAGE_STEP)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,500003062)
+	e3:SetCountLimit(1,id+100)
 	e3:SetCondition(s.atkcon)
 	e3:SetOperation(s.atkop)
 	c:RegisterEffect(e3)
 end
-
 function s.pmfilter(c,sc)
 	return c:IsRace(RACE_CYBERSE,sc,SUMMON_TYPE_SYNCHRO) and c:IsType(TYPE_SYNCHRO,sc,SUMMON_TYPE_SYNCHRO)
 end
@@ -60,11 +59,9 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 	end
 end
-
 function s.tgtg(e,c)
 	return c:IsType(TYPE_SYNCHRO) and c~=e:GetHandler()
 end
-
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local phase=Duel.GetCurrentPhase()
 	if phase~=PHASE_DAMAGE or Duel.IsDamageCalculated() then return false end

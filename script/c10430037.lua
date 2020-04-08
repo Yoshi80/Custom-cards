@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,s.tfilter,1,1,aux.NonTunerEx(Card.IsRace,RACE_MACHINE),1,99)
+	Synchro.AddProcedure(c,s.tfilter,1,1,Synchro.NonTunerEx(Card.IsRace,RACE_MACHINE),1,99)
 	c:EnableReviveLimit()
 	-- gain atk
 	local e1=Effect.CreateEffect(c)
@@ -69,7 +69,9 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 		if g:GetCount()>0 then
 			local tc=g:GetFirst()
 			while tc do
-				atk=atk+tc:GetBaseAttack()
+				if tc:IsRace(RACE_MACHINE) then
+					atk=atk+tc:GetBaseAttack()
+				end
 				tc=g:GetNext()
 			end
 		end
