@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,s.matfilter,1,1)
+	Link.AddProcedure(c,s.matfilter,1,1)
 	--code
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -22,21 +22,19 @@ function s.initial_effect(c)
 	--destroy
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DESTROY)
-	e3:SetDescription(aux.Stringid(75367227,0))
+	e3:SetDescription(aux.Stringid(id,0))
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,75367227)
+	e3:SetCountLimit(1,id)
 	e3:SetCost(s.descost)
 	e3:SetTarget(s.destg)
 	e3:SetOperation(s.desop)
 	c:RegisterEffect(e3)
 end
-
 function s.matfilter(c,scard,sumtype,tp)
 	return c:GetOriginalCode()==50000320
 end
-
 function s.cfilter2(c)
 	return c:IsAttribute(ATTRIBUTE_WATER) and not c:IsType(TYPE_LINK) and c:IsAbleToRemove() and aux.SpElimFilter(c,true)
 end

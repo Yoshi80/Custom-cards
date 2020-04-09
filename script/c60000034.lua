@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,nil,2,2,s.lcheck)
+	Link.AddProcedure(c,nil,2,2,s.lcheck)
 	c:EnableReviveLimit()
 	--negate
 	local e1=Effect.CreateEffect(c)
@@ -31,14 +31,12 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-
 function s.lfilter(c)
-	return c:IsType(TYPE_NORMAL,lc,SUMMON_TYPE_LINK) and c:IsRace(RACE_WINDBEAST)
+	return c:IsType(TYPE_NORMAL,lc,SUMMON_TYPE_LINK) and c:IsRace(RACE_WINGEDBEAST)
 end
 function s.lcheck(g,lc)
 	return g:IsExists(s.lfilter,1,nil,lc)
 end
-
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
 	return ep~=tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
@@ -61,7 +59,6 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(ec,POS_FACEDOWN,REASON_EFFECT)
 	end
 end
-
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,e:GetHandler()) end
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)

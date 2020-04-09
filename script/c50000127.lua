@@ -1,37 +1,35 @@
 -- Gyarados
-
-function c50000127.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,c50000127.matfilter,1)
+	Link.AddProcedure(c,s.matfilter,1)
 	--atkup
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(50000127,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
-	e1:SetTarget(c50000127.atktg)
-	e1:SetOperation(c50000127.atkop)
+	e1:SetTarget(s.atktg)
+	e1:SetOperation(s.atkop)
 	c:RegisterEffect(e1)
 end
-
-function c50000127.matfilter(c)
+function s.matfilter(c)
 	return c:GetLevel()==1 and c:IsRace(RACE_FISH) and c:IsType(TYPE_NORMAL)
 end
-
-function c50000127.atkfilter(c,g)
+function s.atkfilter(c,g)
 	return c:IsFaceup() and c:GetAttack()>0 and g:IsContains(c)
 end
-function c50000127.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local lg=e:GetHandler():GetLinkedGroup()
 	if chkc then return false end
-	if chk==0 then return Duel.IsExistingTarget(c50000127.atkfilter,tp,LOCATION_MZONE,0,1,nil,lg) end
+	if chk==0 then return Duel.IsExistingTarget(s.atkfilter,tp,LOCATION_MZONE,0,1,nil,lg) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SELF)
-	local g=Duel.SelectTarget(tp,c50000127.atkfilter,tp,LOCATION_MZONE,0,1,1,nil,lg)
+	local g=Duel.SelectTarget(tp,s.atkfilter,tp,LOCATION_MZONE,0,1,1,nil,lg)
 	e:SetLabelObject(g:GetFirst())
 end
-function c50000127.atkop(e,tp,eg,ep,ev,re,r,rp)
+function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc1=e:GetLabelObject()
 	local c=e:GetHandler()
 	if tc1:IsFaceup() and tc1:IsRelateToEffect(e) then

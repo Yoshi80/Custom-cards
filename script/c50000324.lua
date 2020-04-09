@@ -3,7 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,s.matfilter,3,3)
+	Link.AddProcedure(c,s.matfilter,3,3)
 	--cannot be target
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -37,14 +37,12 @@ end
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsAttribute(ATTRIBUTE_WATER,scard,sumtype,tp)
 end
-
 function s.imfilter(c)
 	return c:IsFaceup() and c:IsCode(50000320)
 end
 function s.imcon(e)
 	return e:GetHandler():GetLinkedGroup():IsExists(s.imfilter,1,nil)
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end

@@ -1,9 +1,8 @@
 -- Dragon Slayer - Wendy
-
-function c50000133.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	c:EnableReviveLimit()
-	--link summon
-	aux.AddLinkProcedure(c,c50000133.filter,2,nil,c50000133.spcheck)
+	Link.AddProcedure(c,s.filter,2,nil,s.spcheck)
 	--halve damage
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -11,59 +10,56 @@ function c50000133.initial_effect(c)
 	e1:SetCode(EFFECT_CHANGE_DAMAGE)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetTargetRange(1,0)
-	e1:SetValue(c50000133.val)
+	e1:SetValue(s.val)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e2:SetCondition(c50000133.dcon)
-	e2:SetOperation(c50000133.dop)
+	e2:SetCondition(s.dcon)
+	e2:SetOperation(s.dop)
 	c:RegisterEffect(e2)
 	--lvchange
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(50000133,1))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
-	e3:SetTarget(c50000133.lvtg)
-	e3:SetOperation(c50000133.lvop)
+	e3:SetTarget(s.lvtg)
+	e3:SetOperation(s.lvop)
 	c:RegisterEffect(e3)
 	--negate attack
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(50000133,0))
+	e4:SetDescription(aux.Stringid(id,0))
 	e4:SetCategory(CATEGORY_RECOVER)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_BE_BATTLE_TARGET)
-	e4:SetCountLimit(1,50000133)
-	e4:SetTarget(c50000133.natg)
-	e4:SetOperation(c50000133.naop)
+	e4:SetCountLimit(1,id)
+	e4:SetTarget(s.natg)
+	e4:SetOperation(s.naop)
 	c:RegisterEffect(e4)
 end
-
-function c50000133.filter(c,lc,sumtype,tp)
+function s.filter(c,lc,sumtype,tp)
 	return not c:IsType(TYPE_TOKEN,lc,sumtype,tp)
 end
-function c50000133.spcheck(g,lc,tp)
-	return g:GetClassCount(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)==1
+function s.spcheck(g,lc,tp)
+	return g:CheckSameProperty(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)
 end
-
-function c50000133.val(e,re,dam,r,rp,rc)
+function s.val(e,re,dam,r,rp,rc)
 	if bit.band(r,REASON_EFFECT)~=0 then
 		return dam/2
 	else return dam end
 end
-function c50000133.dcon(e,tp,eg,ep,ev,re,r,rp)
+function s.dcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep==tp
 end
-function c50000133.dop(e,tp,eg,ep,ev,re,r,rp)
+function s.dop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.HalfBattleDamage(ep)
 end
-
-function c50000133.lvtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.lvtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetLinkedGroup():Filter(Card.IsLevelAbove,0,0):GetCount()>0 end
 end
-function c50000133.lvop(e,tp,eg,ep,ev,re,r,rp)
+function s.lvop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=c:GetLinkedGroup():Filter(Card.IsLevelAbove,0,0)
 	local tc=g:GetFirst()
@@ -78,11 +74,10 @@ function c50000133.lvop(e,tp,eg,ep,ev,re,r,rp)
 		tc=g:GetNext()
 	end
 end
-
-function c50000133.natg(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.natg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 end
-function c50000133.naop(e,tp,eg,ep,ev,re,r,rp)
+function s.naop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
 	if Duel.NegateAttack() and c:IsRelateToEffect(e) and tc:IsFaceup() then

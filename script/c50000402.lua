@@ -1,7 +1,8 @@
 --Twilight Parasite Diababa
 local s,id=GetID()
 function s.initial_effect(c)
-	aux.AddLinkProcedure(c,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_EARTH),2,3,s.lcheck)
+	c:EnableReviveLimit()
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_EARTH),2,3,s.lcheck)
 	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))

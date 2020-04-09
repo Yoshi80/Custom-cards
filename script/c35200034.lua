@@ -3,8 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	c:SetUniqueOnField(1,0,id)
-	--link summon
-	aux.AddLinkProcedure(c,s.filter,2,nil,s.spcheck)
+	Link.AddProcedure(c,s.filter,2,nil,s.spcheck)
 	--spsummon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -37,14 +36,12 @@ function s.initial_effect(c)
 	e3:SetCondition(s.discon)
 	c:RegisterEffect(e3)
 end
-
 function s.filter(c,lc,sumtype,tp)
 	return c:IsSetCard(0x7e,lc,sumtype,tp)
 end
 function s.spcheck(g,lc,tp)
-	return g:GetClassCount(Card.GetLevel,lc,SUMMON_TYPE_LINK,tp)==1
+	return g:CheckSameProperty(Card.GetLevel,lc,SUMMON_TYPE_LINK,tp)
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
@@ -73,7 +70,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-
 function s.eqcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():CheckUniqueOnField(tp)
 end
@@ -111,11 +107,9 @@ function s.eqop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetReset(RESET_EVENT+0x1fe0000)
 	c:RegisterEffect(e2)
 end
-
 function s.eqlimit(e,c)
 	return c==e:GetLabelObject()
 end
-
 function s.discon(e)
 	local ph=Duel.GetCurrentPhase()
 	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE and e:GetHandler():GetEquipTarget()

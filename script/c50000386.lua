@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-    aux.AddLinkProcedure(c,nil,2,4,s.lcheck)
+    Link.AddProcedure(c,nil,2,4,s.lcheck)
     --atk
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -40,7 +40,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function s.lcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsLinkCode,1,nil,50000384)
+	return g:IsExists(Card.IsCode,1,nil,50000384)
 end
 function s.atkval(e,c)
 	return c:GetLinkedGroupCount()*600

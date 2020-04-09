@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,s.mfilter,2)
+	Link.AddProcedure(c,s.mfilter,2)
 	c:EnableReviveLimit()
 	--to hand
 	local e1=Effect.CreateEffect(c)
@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCountLimit(1,600000481)
+	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.thtg)
 	e1:SetOperation(s.thop)
 	c:RegisterEffect(e1)
@@ -21,16 +21,14 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1,600000482)
+	e2:SetCountLimit(1,id+100)
 	e2:SetTarget(s.eqtg)
 	e2:SetOperation(s.eqop)
 	c:RegisterEffect(e2)
 end
-
 function s.mfilter(c,lc,sumtype,tp)
 	return c:IsSetCard(0x70a) and not c:IsType(TYPE_TOKEN,lc,sumtype,tp)
 end
-
 function s.filter(c)
 	return c:IsSetCard(0x70a) and c:IsAbleToHand()
 end
@@ -48,9 +46,8 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ShuffleHand(tp)
 	end
 end
-
 function s.eqfilter2(c)
-	return c:IsFaceup() and c:IsLinkState()
+	return c:IsFaceup() and c:IsLinked()
 end
 function s.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local lg=e:GetHandler():GetLinkedGroup()

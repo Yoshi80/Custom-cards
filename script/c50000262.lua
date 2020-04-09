@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,s.matfilter,1,1)
+	Link.AddProcedure(c,s.matfilter,1,1)
 	--cannot release
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -38,11 +38,9 @@ function s.initial_effect(c)
 	e5:SetCode(EFFECT_MUST_ATTACK)
 	c:RegisterEffect(e5)
 end
-
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsLevelAbove(5) and c:IsAttribute(ATTRIBUTE_DARK,scard,sumtype,tp)
 end
-
 function s.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end

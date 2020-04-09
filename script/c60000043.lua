@@ -2,10 +2,10 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-    aux.AddLinkProcedure(c,nil,2,3,s.lcheck)
+    Link.AddProcedure(c,nil,2,3,s.lcheck)
     --search
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(60000011,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
@@ -16,7 +16,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--atkup
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(50000127,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -27,9 +27,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.lcheck(g,lc,sumtype,tp)
-    return g:IsExists(Card.IsLinkSetCard,1,nil,0x701)
+    return g:IsExists(Card.IsSetCard,1,nil,0x701)
 end
-
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
@@ -48,7 +47,6 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
 function s.atkfilter(c,g)
 	return c:IsFaceup() and c:GetAttack()>0 and g:IsContains(c)
 end

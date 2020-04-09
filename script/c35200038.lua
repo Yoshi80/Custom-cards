@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,s.mfilter,2)
+	Link.AddProcedure(c,s.mfilter,2)
 	c:EnableReviveLimit()
 	--
 	local e1=Effect.CreateEffect(c)
@@ -28,11 +28,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
-
 function s.mfilter(c,lc,sumtype,tp)
 	return c:IsLevelBelow(5) and c:IsRace(RACE_FISH,lc,sumtype,tp)
 end
-
 function s.costfilter(c,ec)
 	return c:GetType()==TYPE_SPELL and c:IsAbleToGraveAsCost()
 end
@@ -80,7 +78,6 @@ end
 function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsType(TYPE_XYZ) and c:IsLocation(LOCATION_EXTRA)
 end
-
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end

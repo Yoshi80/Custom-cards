@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,s.mfilter,2,4,s.lcheck)
+	Link.AddProcedure(c,s.mfilter,2,4,s.lcheck)
 	c:EnableReviveLimit()
 	--special summon
 	local e1=Effect.CreateEffect(c)
@@ -44,7 +44,6 @@ end
 function s.lcheck(g,lc,sumtype,tp)
 	return g:IsExists(Card.IsType,1,nil,TYPE_LINK,lc,sumtype,tp)
 end
-
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
@@ -59,7 +58,6 @@ end
 function s.aclimit(e,re,tp)
 	return (not re:GetHandler():IsImmuneToEffect(e)) and (re:GetHandler():IsType(TYPE_SPELL) or re:GetHandler():IsType(TYPE_TRAP))
 end
-
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
@@ -78,7 +76,6 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(g,REASON_EFFECT)
 	end
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end

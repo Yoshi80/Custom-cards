@@ -3,7 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--Link summon method
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,s.matfilter,1,1)
+	Link.AddProcedure(c,s.matfilter,1,1)
 	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
-	e1:SetCountLimit(1,500003471)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.thcon)
 	e1:SetTarget(s.thtg)
 	e1:SetOperation(s.thop)
@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1,500003472)
+	e2:SetCountLimit(1,id+100)
 	e2:SetCondition(s.spcon2)
 	e2:SetTarget(s.cttg)
 	e2:SetOperation(s.ctop)
@@ -40,9 +40,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function s.matfilter(c)
-	return c:IsLinkSetCard(0x1710) and not c:IsType(TYPE_LINK)
+	return c:IsSetCard(0x1710) and not c:IsType(TYPE_LINK)
 end
-
 function s.thfilter(c)
 	return c:IsCode(50000346) and c:IsAbleToHand()
 end
@@ -61,7 +60,6 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
 function s.cfilter(c)
 	return c:GetSequence()<5
 end
@@ -91,7 +89,6 @@ function s.ctop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
 function s.imfilter(c,tp)
 	return c:IsFaceup() and c:GetOwner()==1-tp
 end

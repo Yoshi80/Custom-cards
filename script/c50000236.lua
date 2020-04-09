@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,s.matfilter,2,2)
+	Link.AddProcedure(c,s.matfilter,2,2)
 	--change to nohr
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -24,11 +24,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.eqop2)
 	c:RegisterEffect(e2)
 end
-
 function s.matfilter(c,sc,st,tp)
 	return c:IsSetCard(0x70b,sc,st,tp) or c:IsSetCard(0x70c,sc,st,tp)
 end
-
 function s.eqfilter(c,e,tp,lg)
 	return c:IsFaceup() and c:IsSetCard(0x70b) and lg:IsContains(c)
 end
@@ -50,7 +48,6 @@ function s.eqop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
 function s.eqfilter2(c,e,tp,lg)
 	return c:IsFaceup() and c:IsSetCard(0x70c) and lg:IsContains(c)
 end

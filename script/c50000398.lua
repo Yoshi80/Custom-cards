@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,s.mfilter,2)
+	Link.AddProcedure(c,s.mfilter,2)
 	c:EnableReviveLimit()
 	--to hand
 	local e1=Effect.CreateEffect(c)
@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	--atkup
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(85028288,0))
+	e3:SetDescription(aux.Stringid(id,0))
 	e3:SetCategory(CATEGORY_ATKCHANGE)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
@@ -49,7 +49,6 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 	e3:SetLabelObject(e4)
 end
-
 function s.mfilter(c,lc,sumtype,tp)
 	return c:IsAttribute(ATTRIBUTE_EARTH,lc,sumtype,tp) and not c:IsType(TYPE_TOKEN,lc,sumtype,tp)
 end

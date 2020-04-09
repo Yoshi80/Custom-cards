@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,nil,2,2,s.lcheck)
+	Link.AddProcedure(c,nil,2,2,s.lcheck)
 	c:EnableReviveLimit()
 	--special summon
 	local e1=Effect.CreateEffect(c)
@@ -29,11 +29,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop1)
 	c:RegisterEffect(e2)
 end
-
-function s.lcheck(g,lc)
-	return g:GetClassCount(Card.GetCode)==1
+function s.lcheck(g,lc,tp)
+	return g:CheckSameProperty(Card.GetCode,lc,SUMMON_TYPE_LINK,tp)
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
@@ -82,7 +80,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e5)
 	end
 end
-
 function s.spcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return Duel.CheckReleaseGroupCost(tp,Card.IsCode,1,false,nil,c,id) end

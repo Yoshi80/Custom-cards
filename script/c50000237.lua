@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,s.matfilter,2,99)
+	Link.AddProcedure(c,s.matfilter,2,99)
 	--cannot be battle target
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -35,7 +35,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	--destroy
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(32391631,1))
+	e4:SetDescription(aux.Stringid(id,1))
 	e4:SetCategory(CATEGORY_DESTROY)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e4:SetRange(LOCATION_MZONE)
@@ -45,15 +45,12 @@ function s.initial_effect(c)
 	e4:SetOperation(s.desop)
 	c:RegisterEffect(e4)
 end
-
 function s.matfilter(c,sc,st,tp)
 	return c:IsSetCard(0x70b,sc,st,tp) or c:IsSetCard(0x70c,sc,st,tp)
 end
-
 function s.atktg(e,c)
 	return c:IsFaceup() and c:IsSetCard(0x70c) and e:GetHandler():GetLinkedGroup():IsContains(c)
 end
-
 function s.ngcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
@@ -71,7 +68,6 @@ function s.ngop(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.Destroy(eg,REASON_EFFECT)
 	end
 end
-
 function s.seqfilter(c)
 	return c:IsFaceup() and (c:IsSetCard(0x70b) or c:IsSetCard(0x70c))
 end
@@ -88,7 +84,6 @@ function s.seqop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOZONE)
 	Duel.MoveSequence(tc,math.log(Duel.SelectDisableField(tp,1,LOCATION_MZONE,0,0),2))
 end
-
 function s.desfilter(c,g)
 	return g:IsContains(c)
 end

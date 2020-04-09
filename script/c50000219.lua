@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,nil,2,4,s.lcheck)
+	Link.AddProcedure(c,nil,2,4,s.lcheck)
 	c:EnableReviveLimit()
 	--indes
 	local e1=Effect.CreateEffect(c)
@@ -27,11 +27,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.eqop)
 	c:RegisterEffect(e3)
 end
-
 function s.lcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsLinkCode,1,nil,50000217)
+	return g:IsExists(Card.IsCode,1,nil,50000217)
 end
-
 function s.indcon(e)
 	local c=e:GetHandler()
 	local lg=c:GetLinkedGroup()
@@ -52,7 +50,6 @@ function s.indcon(e)
 	end
 	return res
 end
-
 function s.eqfilter2(c,e,tp,lg)
 	return c:IsFaceup() and lg:IsContains(c)
 end

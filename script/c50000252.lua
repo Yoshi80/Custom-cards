@@ -3,7 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--Link summon
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,s.matfilter,2,2)
+	Link.AddProcedure(c,s.matfilter,2,2)
 	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1,500002521)
+	e2:SetCountLimit(1,id)
 	e2:SetHintTiming(0,TIMING_MAIN_END)
 	e2:SetCost(s.spcost)
 	e2:SetTarget(s.sptg)
@@ -42,11 +42,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop2)
 	c:RegisterEffect(e3)
 end
-
 function s.matfilter(c,lc,sumtype,tp)
-	return c:IsLevelBelow(5) and c:IsLinkSetCard(0x70d)
+	return c:IsLevelBelow(5) and c:IsSetCard(0x70d)
 end
-
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
@@ -67,7 +65,6 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ShuffleHand(tp)
 	end
 end
-
 function s.rthcfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_SPELL) and c:IsType(TYPE_CONTINUOUS) and c:IsAbleToHandAsCost()
 end
@@ -94,7 +91,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-
 function s.filter2(c)
 	return c:IsType(TYPE_SPELL) and c:IsType(TYPE_CONTINUOUS) and c:IsFaceup() and c:IsAbleToHand()
 end
