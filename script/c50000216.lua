@@ -30,7 +30,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.lcheck(g,lc,tp)
-	return g:CheckSameProperty(Card.GetCode,lc,SUMMON_TYPE_LINK,tp)
+	return g:GetClassCount(Card.GetCode,lc,SUMMON_TYPE_LINK,tp)==1
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
