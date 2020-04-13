@@ -1,15 +1,15 @@
 -- Hakaishin - Geene
-
-function c50000091.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	--pendulum summon
-	aux.EnablePendulumAttribute(c)
+	Pendulum.AddProcedure(c)
 	--direct attack
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetCode(EFFECT_DIRECT_ATTACK)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(c50000091.atktg)
+	e1:SetTarget(s.atktg)
 	c:RegisterEffect(e1)
 	--cannot special summon
 	local e2=Effect.CreateEffect(c)
@@ -21,25 +21,23 @@ function c50000091.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_SUMMON_SUCCESS)
-	e3:SetOperation(c50000091.penop)
+	e3:SetOperation(s.penop)
 	c:RegisterEffect(e3)
 end
-
-function c50000091.atktg(e,c)
+function s.atktg(e,c)
 	return c:IsSetCard(0x702) and c:IsLevelBelow(7) and c:IsSummonType(SUMMON_TYPE_PENDULUM)
 end
-
-function c50000091.penop(e,tp,eg,ep,ev,re,r,rp)
+function s.penop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e1:SetCode(EVENT_ADJUST)
-	e1:SetOperation(c50000091.checkop)
+	e1:SetOperation(s.checkop)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	c50000091.checkop(e,tp)
+	s.checkop(e,tp)
 end
-function c50000091.checkop(e,tp)
+function s.checkop(e,tp)
 	local lpz=Duel.GetFieldCard(tp,LOCATION_PZONE,0)
 	if lpz~=nil and lpz:GetFlagEffect(50000091)<=0 then
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -48,8 +46,8 @@ function c50000091.checkop(e,tp)
 		e1:SetCode(EFFECT_SPSUMMON_PROC_G)
 		e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetRange(LOCATION_PZONE)
-		e1:SetCondition(c50000091.pencon1)
-		e1:SetOperation(c50000091.penop1)
+		e1:SetCondition(s.pencon1)
+		e1:SetOperation(s.penop1)
 		e1:SetValue(SUMMON_TYPE_PENDULUM)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		lpz:RegisterEffect(e1)
@@ -66,18 +64,18 @@ function c50000091.checkop(e,tp)
 		e2:SetCode(EFFECT_SPSUMMON_PROC_G)
 		e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_BOTH_SIDE)
 		e2:SetRange(LOCATION_PZONE)
-		e2:SetCondition(c50000091.pencon2)
-		e2:SetOperation(c50000091.penop2)
+		e2:SetCondition(s.pencon2)
+		e2:SetOperation(s.penop2)
 		e2:SetValue(SUMMON_TYPE_PENDULUM)
 		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		olpz:RegisterEffect(e2)
 		olpz:RegisterFlagEffect(50000091,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 	end
 end
-function c50000091.penfilter(c,e,tp,lscale,rscale)
+function s.penfilter(c,e,tp,lscale,rscale)
 	return c:IsSetCard(0x702) and c:IsLevelAbove(7) and aux.PConditionFilter(c,e,tp,lscale,rscale)
 end
-function c50000091.pencon1(e,c,og)
+function s.pencon1(e,c,og)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	local rpz=Duel.GetFieldCard(tp,LOCATION_PZONE,1)
@@ -95,9 +93,9 @@ function c50000091.pencon1(e,c,og)
 	else
 		g=Duel.GetFieldGroup(tp,loc,0)
 	end
-	return g:IsExists(c50000091.penfilter,1,nil,e,tp,lscale,rscale)
+	return g:IsExists(s.penfilter,1,nil,e,tp,lscale,rscale)
 end
-function c50000091.penop1(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
+function s.penop1(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local rpz=Duel.GetFieldCard(tp,LOCATION_PZONE,1)
 	local lscale=c:GetLeftScale()
 	local rscale=rpz:GetRightScale()
@@ -115,9 +113,9 @@ function c50000091.penop1(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	if ft2>0 then loc=loc+LOCATION_EXTRA end
 	local tg=nil
 	if og then
-		tg=og:Filter(Card.IsLocation,nil,loc):Filter(c50000091.penfilter,nil,e,tp,lscale,rscale)
+		tg=og:Filter(Card.IsLocation,nil,loc):Filter(s.penfilter,nil,e,tp,lscale,rscale)
 	else
-		tg=Duel.GetMatchingGroup(c50000091.penfilter,tp,loc,0,nil,e,tp,lscale,rscale)
+		tg=Duel.GetMatchingGroup(s.penfilter,tp,loc,0,nil,e,tp,lscale,rscale)
 	end
 	ft1=math.min(ft1,tg:FilterCount(Card.IsLocation,nil,LOCATION_HAND))
 	ft2=math.min(ft2,tg:FilterCount(Card.IsLocation,nil,LOCATION_EXTRA))
@@ -162,7 +160,7 @@ function c50000091.penop1(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	Duel.HintSelection(Group.FromCards(rpz))
 	end
 end
-function c50000091.pencon2(e,c,og)
+function s.pencon2(e,c,og)
 	if c==nil then return true end
 	local tp=e:GetOwnerPlayer()
 	local rpz=Duel.GetFieldCard(1-tp,LOCATION_PZONE,1)
@@ -173,12 +171,12 @@ function c50000091.pencon2(e,c,og)
 	local ft=Duel.GetLocationCountFromEx(tp)
 	if ft<=0 then return false end
 	if og then
-		return og:IsExists(c50000091.penfilter,1,nil,e,tp,lscale,rscale)
+		return og:IsExists(s.penfilter,1,nil,e,tp,lscale,rscale)
 	else
-		return Duel.IsExistingMatchingCard(c50000091.penfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
+		return Duel.IsExistingMatchingCard(s.penfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
 	end
 end
-function c50000091.penop2(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
+function s.penop2(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local tp=e:GetOwnerPlayer()
 	local rpz=Duel.GetFieldCard(1-tp,LOCATION_PZONE,1)
 	local lscale=c:GetLeftScale()
@@ -190,13 +188,13 @@ function c50000091.penop2(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	if ect~=nil then ft=math.min(ft,ect) end
 	if og then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local g=og:FilterSelect(tp,c50000091.penfilter,0,ft,nil,e,tp,lscale,rscale)
+		local g=og:FilterSelect(tp,s.penfilter,0,ft,nil,e,tp,lscale,rscale)
 		if g then
 			sg:Merge(g)
 		end
 	else
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local g=Duel.SelectMatchingCard(tp,c50000091.penfilter,tp,LOCATION_EXTRA,0,0,ft,nil,e,tp,lscale,rscale)
+		local g=Duel.SelectMatchingCard(tp,s.penfilter,tp,LOCATION_EXTRA,0,0,ft,nil,e,tp,lscale,rscale)
 		if g then
 			sg:Merge(g)
 		end

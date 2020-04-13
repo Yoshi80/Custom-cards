@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--pendulum summon
-	aux.EnablePendulumAttribute(c)
+	Pendulum.AddProcedure(c)
 	--self destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -13,11 +13,11 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--atk
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(69211541,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetCountLimit(1,500003171)
+	e2:SetCountLimit(1,id)
 	e2:SetTarget(s.atktg)
 	e2:SetOperation(s.atkop1)
 	c:RegisterEffect(e2)
@@ -46,7 +46,6 @@ function s.initial_effect(c)
 	e5:SetOperation(s.spop)
 	c:RegisterEffect(e5)
 end
-
 function s.sdfilter(c)
 	return c:IsFaceup() and c:IsCode(50000312)
 end
@@ -54,7 +53,6 @@ function s.sdcon(e)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
 		and not Duel.IsExistingMatchingCard(s.sdfilter,0,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 end
-
 function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,0,1,nil) end
@@ -74,7 +72,6 @@ function s.atkop1(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler():GetBattleTarget()
 	return tc and tc:IsRelateToBattle()
@@ -84,7 +81,6 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,0,id)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
