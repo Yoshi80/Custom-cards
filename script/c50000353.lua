@@ -1,7 +1,7 @@
 --Ice Stone
 local s,id=GetID()
 function s.initial_effect(c)
-	aux.AddRitualProcEqual(c,s.ritualfil,nil,nil,nil,nil,nil,nil,LOCATION_HAND)
+	Ritual.AddProcEqualCode(c,6,nil,50000354)
 	--salvage
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND)
@@ -13,11 +13,6 @@ function s.initial_effect(c)
 	e1:SetOperation(s.thop)
 	c:RegisterEffect(e1)
 end
-
-function s.ritualfil(c)
-	return c:IsCode(50000354) and c:IsRitualMonster()
-end
-
 function s.costfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
 end

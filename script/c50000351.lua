@@ -1,7 +1,7 @@
 --Lusamine Possession
 local s,id=GetID()
 function s.initial_effect(c)
-	aux.AddRitualProcEqual(c,s.ritualfil,nil,nil,nil,nil,nil,nil,LOCATION_HAND+LOCATION_GRAVE)
+	Ritual.AddProcEqual(c,s.ritualfil,nil,nil,nil,nil,nil,nil,LOCATION_HAND|LOCATION_GRAVE)
 	--salvage
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND)
@@ -13,11 +13,9 @@ function s.initial_effect(c)
 	e1:SetOperation(s.thop)
 	c:RegisterEffect(e1)
 end
-
 function s.ritualfil(c)
 	return c:IsCode(50000350) and c:IsRitualMonster()
 end
-
 function s.cfilter(c,tp)
 	return c:GetOwner()==1-tp and not c:IsStatus(STATUS_BATTLE_DESTROYED)
 end
