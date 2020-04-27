@@ -33,7 +33,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTargetRange(LOCATION_HAND,0)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	e1:SetCondition(s.ntcon)
-	e1:SetTarget(s.nttg)
+	e1:SetTarget(aux.FieldSummonProcTg(s.nttg))
 	Duel.RegisterEffect(e1,tp)
 end
 function s.ntcon(e,c,minc)
