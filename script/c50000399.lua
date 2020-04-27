@@ -50,8 +50,8 @@ function s.rfilter(c)
 	return c:IsType(TYPE_LINK)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckReleaseGroup(tp,s.rfilter,1,false) end
-	local rg=Duel.SelectReleaseGroup(tp,s.rfilter,1,1,false)
+	if chk==0 then return Duel.CheckReleaseGroup(tp,s.rfilter,1,nil) end
+	local rg=Duel.SelectReleaseGroup(tp,s.rfilter,1,1,nil)
 	Duel.Release(rg,REASON_COST)
 end
 function s.tgval(e,c)
