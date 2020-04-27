@@ -26,7 +26,7 @@ function s.initial_effect(c)
 end
 
 function s.filter1(c,tp)
-	return c.material and c:IsRace(RACE_WINDBEAST) and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_DECK,0,1,nil,c)
+	return c.material and c:IsRace(RACE_WINGEDBEAST) and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_DECK,0,1,nil,c)
 end
 function s.filter2(c,fc)
 	if c:IsForbidden() or not c:IsAbleToHand() then return false end

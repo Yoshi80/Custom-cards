@@ -27,7 +27,7 @@ function s.initial_effect(c)
 end
 
 function s.tgfilter(c)
-	return c:IsRace(RACE_WINDBEAST) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsAbleToGrave()
+	return c:IsRace(RACE_WINGEDBEAST) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -42,7 +42,7 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.repfilter(c,tp)
-	return c:IsFaceup() and c:IsRace(RACE_WINDBEAST) and c:IsType(TYPE_FUSION) 
+	return c:IsFaceup() and c:IsRace(RACE_WINGEDBEAST) and c:IsType(TYPE_FUSION) 
 		and not c:IsReason(REASON_REPLACE) and c:IsOnField()
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)

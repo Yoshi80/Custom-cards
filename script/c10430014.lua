@@ -84,5 +84,5 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.atktg(e,c)
-	return c:IsRace(RACE_WINDBEAST) and c:IsType(TYPE_FUSION)
+	return c:IsRace(RACE_WINGEDBEAST) and c:IsType(TYPE_FUSION)
 end

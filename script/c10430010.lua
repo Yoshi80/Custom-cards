@@ -48,7 +48,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_FUSION) and c:IsAttribute(ATTRIBUTE_WIND)
+	return c:IsFaceup() and c:IsType(TYPE_FUSION) and c:IsRace(RACE_WINGEDBEAST)
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)

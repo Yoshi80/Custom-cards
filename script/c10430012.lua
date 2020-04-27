@@ -28,7 +28,7 @@ function s.spfilter1(c,e)
 	return not c:IsImmuneToEffect(e)
 end
 function s.spfilter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsRace(RACE_WINDBEAST) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsRace(RACE_WINGEDBEAST) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -84,7 +84,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsRace(RACE_WINDBEAST) and c:IsLevelBelow(4) and c:IsAbleToHand()
+	return c:IsRace(RACE_WINGEDBEAST) and c:IsLevelBelow(4) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

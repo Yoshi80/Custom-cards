@@ -23,7 +23,7 @@ function s.initial_effect(c)
 end
 
 function s.filter(c)
-	return c:IsFaceup() and c:IsRace(RACE_WINDBEAST)
+	return c:IsFaceup() and c:IsRace(RACE_WINGEDBEAST)
 end
 function s.spcon(e,c)
 	if c==nil then return true end
@@ -32,7 +32,7 @@ function s.spcon(e,c)
 end
 
 function s.spfil(c,e,tp)
-	return c:IsRace(RACE_WINDBEAST) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsRace(RACE_WINGEDBEAST) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
