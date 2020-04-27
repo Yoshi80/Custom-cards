@@ -39,7 +39,7 @@ function s.tfop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and rp~=tp and Duel.IsChainNegatable(ev) and e:GetHandler():IsSummonType(SUMMON_TYPE_ADVANCE)
+	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and rp~=tp and Duel.IsChainNegatable(ev) and e:GetHandler():IsSummonType(SUMMON_TYPE_TRIBUTE)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

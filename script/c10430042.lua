@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsSummonType(SUMMON_TYPE_ADVANCE)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_TRIBUTE)
 end
 function s.filter(c)
 	return c:IsRace(RACE_FAIRY) and c:IsLevelBelow(4) and c:IsAbleToHand()

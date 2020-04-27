@@ -44,7 +44,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsSummonType(SUMMON_TYPE_ADVANCE)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_TRIBUTE)
 end
 function s.indval(e,re,tp)
 	return true

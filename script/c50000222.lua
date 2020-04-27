@@ -63,7 +63,7 @@ end
 
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsSummonType(SUMMON_TYPE_ADVANCE)
+	return c:IsSummonType(SUMMON_TYPE_TRIBUTE)
 end
 function s.indval(e,re,tp)
 	return tp~=e:GetHandlerPlayer()
