@@ -46,12 +46,12 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function s.cfilter(c,tp)
+function s.cfilter(c,tp,rp)
 	return c:IsSetCard(0x70d) and c:IsType(TYPE_FUSION) and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
-		and c:GetReasonPlayer()~=tp
+		and (c:IsReason(REASON_BATTLE) or (rp~=tp and c:IsReason(REASON_EFFECT)))
 end
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.cfilter,1,nil,tp)
+	return eg:IsExists(s.cfilter,1,nil,tp,rp)
 end
 function s.filter(c,e,tp)
 	return c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
