@@ -48,9 +48,10 @@ end
 
 function s.cfilter(c,tp)
 	return c:IsSetCard(0x70d) and c:IsType(TYPE_FUSION) and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
+		and c:GetReasonPlayer()~=tp
 end
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-	return rp~=tp and eg:IsExists(s.cfilter,1,nil,tp)
+	return eg:IsExists(s.cfilter,1,nil,tp)
 end
 function s.filter(c,e,tp)
 	return c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
