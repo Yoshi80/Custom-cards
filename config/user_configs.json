@@ -1,0 +1,24 @@
+{
+	"repos": [
+		{
+			"url": "https://github.com/Yoshi80/Custom-cards",
+			"repo_name": "Yoshi Duels custom cards",
+			"repo_path": "./repositories/yoshi_duels",
+			"has_core": false,
+			"data_path": "",
+			"script_path": "script",
+			"pics_path": "pics",
+			"expansions_path": "expansions",
+			"should_update": true,
+			"should_read": true
+		}
+	],
+	"urls": [
+		{
+            "url": "https://raw.githubusercontent.com/Yoshi80/Custom-cards/master/pics/field/{}.png",
+            "type": "field"
+        },
+	],
+	"servers": [],
+	"posixPathExtension": "/usr/local/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+}
