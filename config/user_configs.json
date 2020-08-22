@@ -11,6 +11,14 @@
 			"expansions_path": "expansions",
 			"should_update": true,
 			"should_read": true
+		},
+		{
+			"url": "https://github.com/Yoshi80/Yoshi-Duels-Banlist",
+			"repo_name": "Yoshi Duels Banlist",
+			"repo_path": "./repositories/ysohi_duels/lflists",
+			"lflist_path": ".",
+			"should_update": true,
+			"should_read": true
 		}
 	],
 	"urls": [
