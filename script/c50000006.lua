@@ -1,21 +1,19 @@
 --- Ultra Instinct Battle
-
-function c50000006.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e1:SetCondition(c50000006.condition)
-	e1:SetOperation(c50000006.activate)
+	e1:SetCondition(s.condition)
+	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-
-function c50000006.condition(e,tp,eg,ep,ev,re,r,rp)
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttackTarget()
 	return tc and tc:IsFaceup() and tc:IsControler(tp) and tc:IsRace(RACE_BEASTWARRIOR) and tp~=Duel.GetTurnPlayer()
 end
-
-function c50000006.activate(e,tp,eg,ep,ev,re,r,rp)
+function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
 	local gc=Group.CreateGroup()
 	gc:AddCard(tc)

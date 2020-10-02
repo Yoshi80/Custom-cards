@@ -11,6 +11,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
 	c:RegisterEffect(e1)
@@ -42,9 +43,16 @@ end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc = Duel.GetFirstTarget()
 	local zone=e:GetHandler():GetLinkedZone(tp)&0x1f
-	if tc and tc:IsRelateToEffect(e) and zone~=0 then
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP,zone)
+	if tc and tc:IsRelateToEffect(e) and zone~=0 and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP,zone) then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_CANNOT_BE_LINK_MATERIAL)
+		e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+		e1:SetValue(1)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		tc:RegisterEffect(e1,true)
 	end
+	Duel.SpecialSummonComplete()
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local at=Duel.GetAttacker()
