@@ -1,8 +1,8 @@
 -- The Great Bending Machine
-
-function c50000066.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	c:SetCounterLimit(0x1999,3)
-	c:SetUniqueOnField(1,0,50000066)
+	c:SetUniqueOnField(1,0,id)
 	--cannot special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -16,8 +16,8 @@ function c50000066.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(0,1)
-	e2:SetCondition(c50000066.refcon)
-	e2:SetValue(c50000066.aclimit)
+	e2:SetCondition(s.refcon)
+	e2:SetValue(s.aclimit)
 	c:RegisterEffect(e2)
 	--add counter
 	local e3=Effect.CreateEffect(c)
@@ -25,23 +25,21 @@ function c50000066.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
 	e3:SetCode(EVENT_PHASE+PHASE_STANDBY)
-	e3:SetCondition(c50000066.ctcon)
-	e3:SetOperation(c50000066.ctop)
+	e3:SetCondition(s.ctcon)
+	e3:SetOperation(s.ctop)
 	c:RegisterEffect(e3)
 end
-
-function c50000066.refcon(e)
+function s.refcon(e)
 	local ph=Duel.GetCurrentPhase()
 	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE
 end
-function c50000066.aclimit(e,re,tp)
+function s.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
 end
-
-function c50000066.ctcon(e,tp,eg,ep,ev,re,r,rp)
+function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
-function c50000066.ctop(e,tp,eg,ep,ev,re,r,rp)
+function s.ctop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	c:AddCounter(0x1999,1)
 end

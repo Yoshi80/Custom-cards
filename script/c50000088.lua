@@ -65,8 +65,8 @@ function s.cfilter2(c)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetAttackAnnouncedCount()==0
-		and Duel.CheckReleaseGroupCost(tp,s.cfilter2,1,false,nil,nil,tp) end
-	local g=Duel.SelectReleaseGroupCost(tp,s.cfilter2,1,1,false,nil,nil,tp)
+		and Duel.CheckReleaseGroupCost(tp,s.cfilter2,1,false,nil,e:GetHandler()) end
+	local g=Duel.SelectReleaseGroupCost(tp,s.cfilter2,1,1,false,nil,e:GetHandler())
 	Duel.Release(g,REASON_COST)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)

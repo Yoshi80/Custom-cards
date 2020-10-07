@@ -1,6 +1,6 @@
 -- Fairy Spirit - Aries
-
-function c50000094.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--battle indes
 	local e1=Effect.CreateEffect(c)
@@ -9,22 +9,20 @@ function c50000094.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
 	e1:SetCountLimit(1)
-	e1:SetValue(c50000094.valcon)
+	e1:SetValue(s.valcon)
 	c:RegisterEffect(e1)
 	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e2:SetCode(EVENT_BATTLED)
-	e2:SetOperation(c50000094.operation)
+	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-
-function c50000094.valcon(e,re,r,rp)
+function s.valcon(e,re,r,rp)
 	return bit.band(r,REASON_BATTLE)~=0
 end
-
-function c50000094.operation(e,tp,eg,ep,ev,re,r,rp)
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
 	if not bc then return end

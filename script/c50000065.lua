@@ -91,8 +91,8 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_UPDATE_ATTACK)
 		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e2:SetReset(RESET_EVENT+0x1fe0000)
-		e2:SetValue(math.ceil(atk/2))
+		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e2:SetValue(atk/2)
 		c:RegisterEffect(e2)
 	end
 end
