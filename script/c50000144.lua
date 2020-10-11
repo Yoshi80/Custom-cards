@@ -1,6 +1,6 @@
 -- Dragon Force
-
-function c50000144.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
@@ -8,26 +8,26 @@ function c50000144.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetHintTiming(TIMING_DAMAGE_STEP)
-	e1:SetCondition(c50000144.condition)
-	e1:SetTarget(c50000144.target)
-	e1:SetOperation(c50000144.activate)
+	e1:SetCountLimit(1,id+EFFECT_COUNT_CODE_OATH)
+	e1:SetCondition(s.condition)
+	e1:SetTarget(s.target)
+	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-
-function c50000144.condition(e,tp,eg,ep,ev,re,r,rp)
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
-function c50000144.filter(c)
+function s.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x705)
 end
-function c50000144.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c50000144.filter,tp,LOCATION_MZONE,0,1,nil) end
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil) end
 end
-function c50000144.filter2(c,e)
+function s.filter2(c,e)
 	return c:IsFaceup() and c:IsSetCard(0x705) and not c:IsImmuneToEffect(e)
 end
-function c50000144.activate(e,tp,eg,ep,ev,re,r,rp)
-	local sg=Duel.GetMatchingGroup(c50000144.filter2,tp,LOCATION_MZONE,0,nil,e)
+function s.activate(e,tp,eg,ep,ev,re,r,rp)
+	local sg=Duel.GetMatchingGroup(s.filter2,tp,LOCATION_MZONE,0,nil,e)
 	local c=e:GetHandler()
 	local fid=c:GetFieldID()
 	local tc=sg:GetFirst()
@@ -50,24 +50,24 @@ function c50000144.activate(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetCountLimit(1)
 	e2:SetLabel(fid)
 	e2:SetLabelObject(sg)
-	e2:SetCondition(c50000144.descon)
-	e2:SetOperation(c50000144.desop)
+	e2:SetCondition(s.descon)
+	e2:SetOperation(s.desop)
 	Duel.RegisterEffect(e2,tp)
 end
-function c50000144.desfilter(c,fid)
+function s.desfilter(c,fid)
 	return c:GetFlagEffectLabel(50000144)==fid
 end
-function c50000144.descon(e,tp,eg,ep,ev,re,r,rp)
+function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetLabelObject()
-	if not g:IsExists(c50000144.desfilter,1,nil,e:GetLabel()) then
+	if not g:IsExists(s.desfilter,1,nil,e:GetLabel()) then
 		g:DeleteGroup()
 		e:Reset()
 		return false
 	else return true end
 end
-function c50000144.desop(e,tp,eg,ep,ev,re,r,rp)
+function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetLabelObject()
-	local dg=g:Filter(c50000144.desfilter,nil,e:GetLabel())
+	local dg=g:Filter(s.desfilter,nil,e:GetLabel())
 	g:DeleteGroup()
 	Duel.Remove(dg,POS_FACEUP,REASON_EFFECT)
 end

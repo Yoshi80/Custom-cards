@@ -41,7 +41,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4,false,1)
 end
 function s.tgcon(e)
-	return e:GetHandler():IsLinkState()
+	return e:GetHandler():IsLinked()
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and re:GetHandler()~=e:GetHandler()
