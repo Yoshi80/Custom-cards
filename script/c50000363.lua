@@ -24,6 +24,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
+s.listed_names={50000361}
 function s.desfilter(c)
 	return c:IsFacedown() and c:IsDestructable()
 end

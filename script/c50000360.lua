@@ -20,7 +20,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-
+s.listed_names={50000358}
 function s.lmop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetAttacker()~=e:GetHandler():GetEquipTarget() then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
