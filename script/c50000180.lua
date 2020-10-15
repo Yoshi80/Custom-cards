@@ -1,15 +1,15 @@
 -- Vale the Distant
-
-function c50000180.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetDescription(aux.Stringid(50000180,0))
 	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e1:SetCode(EVENT_TO_GRAVE)
-	e1:SetTarget(c50000180.target)
-	e1:SetOperation(c50000180.operation)
+	e1:SetTarget(s.target)
+	e1:SetOperation(s.operation)
 	c:RegisterEffect(e1)
 	--spsummon limit
 	local e2=Effect.CreateEffect(c)
@@ -18,15 +18,14 @@ function c50000180.initial_effect(c)
 	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetTargetRange(1,0)
-	e2:SetTarget(c50000180.sumlimit)
+	e2:SetTarget(s.sumlimit)
 	c:RegisterEffect(e2)
 end
-
-function c50000180.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function c50000180.operation(e,tp,eg,ep,ev,re,r,rp)
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)~=0 then
 		local e1=Effect.CreateEffect(c)
@@ -38,7 +37,6 @@ function c50000180.operation(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e1,true)
 	end
 end
-
-function c50000180.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
+function s.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:IsLocation(LOCATION_EXTRA) and (not c:IsAttribute(ATTRIBUTE_DARK) or not c:IsType(TYPE_LINK))
 end

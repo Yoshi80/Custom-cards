@@ -1,13 +1,13 @@
 -- Splat Gear - Roller
-
-function c50000170.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	aux.AddEquipProcedure(c)
 	--equip effect
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_EQUIP)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-	e1:SetValue(c50000170.efilter1)
+	e1:SetValue(s.efilter1)
 	c:RegisterEffect(e1)
 	--destroy sub
 	local e2=Effect.CreateEffect(c)
@@ -29,8 +29,6 @@ function c50000170.initial_effect(c)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
 end
-
-
-function c50000170.efilter1(e,re,rp)
+function s.efilter1(e,re,rp)
 	return rp==e:GetHandlerPlayer() and re:IsActiveType(TYPE_SPELL) and re:IsActiveType(TYPE_EQUIP) and re:GetHandler():IsSetCard(0x709)
 end

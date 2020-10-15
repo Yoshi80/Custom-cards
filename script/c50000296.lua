@@ -23,7 +23,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-
 function s.cfilter(c)
 	return c:IsRace(RACE_CYBERSE) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsDiscardable()
 end
@@ -41,7 +40,6 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Draw(p,d,REASON_EFFECT)
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsLocation(LOCATION_DECK)
 end
@@ -69,7 +67,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end
-
 function s.splimit(e,c)
 	return not (c:IsType(TYPE_SYNCHRO) and c:IsRace(RACE_CYBERSE))
 end

@@ -1,14 +1,14 @@
 -- Sayajin Fusion
-
-function c60000004.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetHintTiming(0,TIMING_END_PHASE)
-	e1:SetTarget(c60000004.target)
-	e1:SetOperation(c60000004.activate)
+	e1:SetTarget(s.target)
+	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 	--spsummon
 	local e2=Effect.CreateEffect(c)
@@ -18,40 +18,39 @@ function c60000004.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCondition(aux.exccon)
 	e2:SetCost(aux.bfgcost)
-	e2:SetTarget(c60000004.sptg)
-	e2:SetOperation(c60000004.spop)
+	e2:SetTarget(s.sptg)
+	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-
-function c60000004.filter1(c,e)
+function s.filter1(c,e)
 	return not c:IsImmuneToEffect(e)
 end
-function c60000004.filter2(c,e,tp,m,f,chkf)
+function s.filter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x700) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
-function c60000004.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=tp
 		local mg1=Duel.GetFusionMaterial(tp)
-		local res=Duel.IsExistingMatchingCard(c60000004.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
+		local res=Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
 			if ce~=nil then
 				local fgroup=ce:GetTarget()
 				local mg2=fgroup(ce,e,tp)
 				local mf=ce:GetValue()
-				res=Duel.IsExistingMatchingCard(c60000004.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
+				res=Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
 			end
 		end
 		return res
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c60000004.activate(e,tp,eg,ep,ev,re,r,rp)
+function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=tp
-	local mg1=Duel.GetFusionMaterial(tp):Filter(c60000004.filter1,nil,e)
-	local sg1=Duel.GetMatchingGroup(c60000004.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local mg1=Duel.GetFusionMaterial(tp):Filter(s.filter1,nil,e)
+	local sg1=Duel.GetMatchingGroup(s.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -59,7 +58,7 @@ function c60000004.activate(e,tp,eg,ep,ev,re,r,rp)
 		local fgroup=ce:GetTarget()
 		mg2=fgroup(ce,e,tp)
 		local mf=ce:GetValue()
-		sg2=Duel.GetMatchingGroup(c60000004.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
+		sg2=Duel.GetMatchingGroup(s.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
 	end
 	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
 		local sg=sg1:Clone()
@@ -81,19 +80,18 @@ function c60000004.activate(e,tp,eg,ep,ev,re,r,rp)
 		tc:CompleteProcedure()
 	end
 end
-
-function c60000004.spfilter(c,e,tp)
+function s.spfilter(c,e,tp)
 	return c:IsRace(RACE_BEASTWARRIOR) and c:IsType(TYPE_FUSION) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c60000004.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c60000004.spfilter(chkc,e,tp) end
+function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.spfilter(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(c60000004.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+		and Duel.IsExistingTarget(s.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectTarget(tp,c60000004.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local g=Duel.SelectTarget(tp,s.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
 end
-function c60000004.spop(e,tp,eg,ep,ev,re,r,rp)
+function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)

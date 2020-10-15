@@ -8,7 +8,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCode(EVENT_CHAINING)
-	e1:SetCountLimit(1,500002111)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.spcon)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
@@ -20,7 +20,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
-	e2:SetCountLimit(1,500002112)
+	e2:SetCountLimit(1,id+1000)
 	e2:SetTarget(s.rmtg)
 	e2:SetOperation(s.rmop)
 	c:RegisterEffect(e2)
@@ -28,7 +28,6 @@ function s.initial_effect(c)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return re:GetHandler():IsType(TYPE_TRAP+TYPE_SPELL)
 end
@@ -42,7 +41,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
 end
-
 function s.filter(c,code)
 	return c:IsCode(code) and c:IsAbleToHand()
 end

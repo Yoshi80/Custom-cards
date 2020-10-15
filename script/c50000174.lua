@@ -1,13 +1,13 @@
 -- Splat Gear - Inkbrush
-
-function c50000174.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	aux.AddEquipProcedure(c)
 	--equip effect
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_EQUIP)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-	e1:SetValue(c50000174.efilter1)
+	e1:SetValue(s.efilter1)
 	c:RegisterEffect(e1)
 	--destroy sub
 	local e2=Effect.CreateEffect(c)
@@ -18,31 +18,29 @@ function c50000174.initial_effect(c)
 	c:RegisterEffect(e2)
 	--remove
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(50000174,0))
+	e3:SetDescription(aux.Stringid(id,0))
 	e3:SetCategory(CATEGORY_REMOVE)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetHintTiming(0,0x11e0)
-	e3:SetCountLimit(1,50000174)
+	e3:SetCountLimit(1,id)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetRange(LOCATION_SZONE)
-	e3:SetTarget(c50000174.target)
-	e3:SetOperation(c50000174.operation)
+	e3:SetTarget(s.target)
+	e3:SetOperation(s.operation)
 	c:RegisterEffect(e3)
 end
-
-function c50000174.efilter1(e,re,rp)
+function s.efilter1(e,re,rp)
 	return rp==e:GetHandlerPlayer() and re:IsActiveType(TYPE_SPELL) and re:IsActiveType(TYPE_EQUIP) and re:GetHandler():IsSetCard(0x709)
 end
-
-function c50000174.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_MZONE+LOCATION_GRAVE) and c50000174.rmfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c50000174.rmfilter,tp,0,LOCATION_MZONE+LOCATION_GRAVE,1,nil) end
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_MZONE+LOCATION_GRAVE) and s.rmfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(s.rmfilter,tp,0,LOCATION_MZONE+LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectTarget(tp,c50000174.rmfilter,tp,0,LOCATION_MZONE+LOCATION_GRAVE,1,1,nil)
+	local g=Duel.SelectTarget(tp,s.rmfilter,tp,0,LOCATION_MZONE+LOCATION_GRAVE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
-function c50000174.operation(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=Duel.GetFirstTarget()
 	local ec=e:GetHandler():GetEquipTarget()
 	if tc and tc:IsRelateToEffect(e) then

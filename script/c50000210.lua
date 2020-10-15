@@ -10,7 +10,7 @@ function s.initial_effect(c)
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetCountLimit(1,500002101)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.descon)
 	e1:SetTarget(s.destg)
 	e1:SetOperation(s.desop)
@@ -21,13 +21,12 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_BATTLE_DESTROYING)
-	e2:SetCountLimit(1,500002102)
+	e2:SetCountLimit(1,id+1000)
 	e2:SetCondition(aux.bdocon)
 	e2:SetTarget(s.sptg)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
@@ -46,7 +45,6 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(g,REASON_EFFECT)
 	end
 end
-
 function s.filter(c,e,tp)
 	return c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end

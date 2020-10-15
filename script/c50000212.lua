@@ -20,7 +20,6 @@ function s.initial_effect(c)
 	e3:SetOperation(s.lvop)
 	c:RegisterEffect(e3)
 end
-
 function s.filter(c)
 	return c:IsFaceup() and c:IsCode(50000211)
 end
@@ -29,7 +28,6 @@ function s.spcon(e,c)
 	return Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(s.filter,c:GetControler(),LOCATION_MZONE,0,1,nil)
 end
-
 function s.lvfilter(c)
 	return c:IsFaceup() and c:GetLevel()>0
 end
