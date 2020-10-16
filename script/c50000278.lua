@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetHintTiming(0,0x1c0)
-	e1:SetCountLimit(1,500002781)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.condition)
 	e1:SetTarget(s.xyztg)
 	e1:SetOperation(s.xyzop)
@@ -18,12 +18,11 @@ function s.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,500002782)
+	e2:SetCountLimit(1,id+1000)
 	e2:SetTarget(s.target)
 	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0
 end
@@ -76,7 +75,6 @@ function s.xyzop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.XyzSummon(tp,xyz,mg,99,99)
 	end
 end
-
 function s.filter2(c)
 	return c:IsFaceup() and c:IsRank(7) and c:IsType(TYPE_XYZ) and c:GetOverlayCount()==0
 end

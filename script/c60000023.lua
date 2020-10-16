@@ -8,6 +8,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
@@ -19,11 +20,11 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCost(aux.bfgcost)
+	e2:SetCountLimit(1,id+100)
 	e2:SetTarget(s.target2)
 	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-
 function s.filter1(c,e,tp)
 	local rk=c:GetRank()
 	local race=c:GetRace()
@@ -60,7 +61,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		sc:CompleteProcedure()
 	end
 end
-
 function s.filter(c,e,tp)
 	return c:IsSetCard(0x707) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end

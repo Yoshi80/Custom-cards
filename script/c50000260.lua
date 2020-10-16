@@ -5,7 +5,7 @@ function s.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,500002601)
+	e1:SetCountLimit(1,id)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 	--equip or spsummon
@@ -16,7 +16,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetCountLimit(1,500002602)
+	e2:SetCountLimit(1,id+100)
 	e2:SetCost(s.cost3)
 	e2:SetTarget(s.tg3)
 	e2:SetOperation(s.op3)
@@ -35,7 +35,6 @@ function s.initial_effect(c)
 	e4:SetCode(EFFECT_UNRELEASABLE_NONSUM)
 	c:RegisterEffect(e4)
 end
-
 function s.filter(c)
 	return c:IsCode(50000259) and c:IsAbleToHand()
 end
@@ -49,7 +48,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-
 function s.cost3(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
@@ -73,7 +71,6 @@ function s.op3(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(tc,0,tp,1-tp,false,false,POS_FACEUP)
 	end
 end
-
 function s.target(e,c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsLevelAbove(8)
 end

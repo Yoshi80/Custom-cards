@@ -1,7 +1,7 @@
 --Incarnate Tool C&D
 local s,id=GetID()
 function s.initial_effect(c)
-	aux.AddRitualProcGreaterCode(c,35200030)
+	Ritual.AddProcGreaterCode(c,35200030)
 	--equip
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(93108839,0))

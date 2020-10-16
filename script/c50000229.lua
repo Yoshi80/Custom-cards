@@ -12,7 +12,6 @@ function s.initial_effect(c)
 	e1:SetOperation(s.thop)
 	c:RegisterEffect(e1)
 end
-
 function s.thfilter(c)
 	return c:IsSetCard(0x70c) and not c:IsCode(id) and c:IsAbleToHand()
 end

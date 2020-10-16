@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,id)
+	e1:SetCountLimit(1,id+EFFECT_COUNT_CODE_OATH)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
@@ -18,7 +18,6 @@ function s.initial_effect(c)
 	e2:SetCondition(s.handcon)
 	c:RegisterEffect(e2)
 end
-
 function s.filter(c)
 	return c:IsSetCard(0x70f) and c:IsAbleToDeck()
 end
@@ -55,7 +54,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-
 function s.handcon(e)
 	local tp=e:GetHandlerPlayer()
 	return Duel.GetFieldCard(tp,LOCATION_SZONE,5)==nil
