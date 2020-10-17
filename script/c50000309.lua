@@ -10,24 +10,23 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
-	e1:SetCountLimit(1,500003091)
+	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.rmtg)
 	e1:SetOperation(s.rmop)
 	c:RegisterEffect(e1)
 	--special summon
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(50000033,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_DESTROYED)
-	e2:SetCountLimit(1,500003092)
+	e2:SetCountLimit(1,id+1000)
 	e2:SetCondition(s.spcon)
 	e2:SetTarget(s.sptg)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_GRAVE+LOCATION_ONFIELD,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,1-tp,LOCATION_GRAVE)
@@ -39,7 +38,6 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 	end
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and e:GetHandler():GetPreviousControler()==tp and e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end

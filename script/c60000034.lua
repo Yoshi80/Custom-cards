@@ -42,7 +42,7 @@ function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsReleasable() and e:GetHandler():IsLinkState() end
+	if chk==0 then return e:GetHandler():IsReleasable() and e:GetHandler():IsLinked() end
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk)

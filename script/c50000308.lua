@@ -2,14 +2,14 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(4786063,1))
+	e1:SetDescription(aux.Stringid(id,1))
 	e1:SetCategory(CATEGORY_DEFCHANGE)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetHintTiming(TIMING_DAMAGE_STEP)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
-	e1:SetCountLimit(1,500003081)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.condition)
 	e1:SetCost(s.cost)
 	e1:SetTarget(s.target)
@@ -22,13 +22,12 @@ function s.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetCode(EVENT_PHASE+PHASE_END)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,500003082)
+	e2:SetCountLimit(1,id+100)
 	e2:SetCondition(s.tfcon)
 	e2:SetTarget(s.sumtg)
 	e2:SetOperation(s.sumop)
 	c:RegisterEffect(e2)
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
@@ -68,14 +67,12 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e3)
 	end
 end
-
 function s.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep==e:GetOwnerPlayer()
 end
 function s.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,0)
 end
-
 function s.tfcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end

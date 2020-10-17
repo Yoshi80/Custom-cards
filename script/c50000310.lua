@@ -12,7 +12,6 @@ function s.initial_effect(c)
 	e1:SetOperation(s.operation)
 	c:RegisterEffect(e1)
 end
-
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsCode(50000309) end
 	if chk==0 then return Duel.IsExistingTarget(aux.FilterFaceupFunction(Card.IsCode,50000309),tp,LOCATION_MZONE,0,1,nil) end

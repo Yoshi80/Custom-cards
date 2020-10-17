@@ -8,12 +8,12 @@ function s.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetHintTiming(TIMING_ATTACK,TIMING_ATTACK)
+	e1:SetCountLimit(1,id+EFFECT_COUNT_CODE_OATH)
 	e1:SetCost(s.cost)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-
 function s.cfilter(c,ft,tp)
 	return c:IsAttribute(ATTRIBUTE_WATER) and c:IsType(TYPE_LINK) and (ft>0 or (c:GetSequence()<5 and c:IsControler(tp))) and (c:IsFaceup() or c:IsControler(tp))
 end

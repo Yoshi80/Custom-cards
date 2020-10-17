@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,500002951)
+	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
@@ -18,13 +18,12 @@ function s.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCode(EVENT_TO_GRAVE)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,500002952)
+	e2:SetCountLimit(1,id+1000)
 	e2:SetCondition(s.setcon)
 	e2:SetTarget(s.settg)
 	e2:SetOperation(s.setop)
 	c:RegisterEffect(e2)
 end
-
 function s.spfilter(c,e,tp,mc)
 	return c:IsLevelBelow(mc:GetLevel()) and not c:IsCode(mc:GetCode()) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
@@ -51,7 +50,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-
 function s.cfilter(c,tp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:GetReasonPlayer()~=tp
 		and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP)

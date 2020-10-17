@@ -3,12 +3,12 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(94656263,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetCountLimit(1,500003051)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.spcon)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
@@ -20,13 +20,12 @@ function s.initial_effect(c)
 	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCode(EVENT_BE_MATERIAL)
-	e2:SetCountLimit(1,500003052)
+	e2:SetCountLimit(1,id+1000)
 	e2:SetCondition(s.reccon)
 	e2:SetTarget(s.rectg)
 	e2:SetOperation(s.recop)
 	c:RegisterEffect(e2)
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local ec=eg:GetFirst()
 	return ec:IsRace(RACE_CYBERSE) and ec:IsAttribute(ATTRIBUTE_LIGHT)
@@ -43,7 +42,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		c:CompleteProcedure()
 	end
 end
-
 function s.reccon(e,tp,eg,ep,ev,re,r,rp)
 	return r==REASON_SYNCHRO
 end

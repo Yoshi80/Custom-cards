@@ -8,12 +8,12 @@ function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
 	--banish
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(82005435,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(1,104300141)
+	e1:SetCountLimit(1,id)
 	e1:SetCost(s.cost)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.operation)
@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,104300142)
+	e2:SetCountLimit(1,id+100)
 	e2:SetCost(s.cost2)
 	e2:SetCondition(s.spcon)
 	e2:SetTarget(s.sptg)
@@ -41,7 +41,6 @@ function s.initial_effect(c)
 	e3:SetValue(800)
 	c:RegisterEffect(e3)
 end
-
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsReleasable() end
 	Duel.Release(e:GetHandler(),REASON_COST)
@@ -58,7 +57,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 	local sg=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_GRAVE,nil)
 	Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
 end
-
 function s.cfilter(c)
 	return not c:IsStatus(STATUS_BATTLE_DESTROYED)
 end
@@ -82,7 +80,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Damage(1-tp,1500,REASON_EFFECT)
 	end
 end
-
 function s.atktg(e,c)
 	return c:IsRace(RACE_WINGEDBEAST) and c:IsType(TYPE_FUSION)
 end

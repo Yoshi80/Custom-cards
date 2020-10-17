@@ -46,7 +46,6 @@ function s.spop1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-
 function s.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
 end

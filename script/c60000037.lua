@@ -10,7 +10,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCountLimit(1,600000372)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.thcon)
 	e1:SetTarget(s.thtg)
 	e1:SetOperation(s.thop)
@@ -21,7 +21,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1,600000371)
+	e2:SetCountLimit(1,id+100)
 	e2:SetHintTiming(0,0x1e0)
 	e2:SetCondition(s.rmcon)
 	e2:SetCost(s.rmcost)
@@ -29,7 +29,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.rmop)
 	c:RegisterEffect(e2)
 end
-
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
@@ -63,7 +62,6 @@ end
 function s.disop(e,tp)
 	return bit.lshift(0x1,e:GetLabel())
 end
-
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end

@@ -5,25 +5,24 @@ function s.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e1:SetCountLimit(1,500003322)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.condition)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 	--token
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(50000196,1))
+	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOKEN)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetCountLimit(1,500003321)
+	e2:SetCountLimit(1,id+1000)
 	e2:SetCost(aux.bfgcost)
 	e2:SetTarget(s.tktg)
 	e2:SetOperation(s.tkop)
 	c:RegisterEffect(e2)
 end
-
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsCode(50000324)
 end
@@ -40,7 +39,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SkipPhase(1-tp,PHASE_BATTLE,RESET_PHASE+PHASE_BATTLE,1)
 	end
 end
-
 function s.tktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if chk==0 then

@@ -11,6 +11,7 @@ function s.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e1;SetCountLimit(1,id)
 	e1:SetCondition(s.condition)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.operation)
@@ -22,13 +23,12 @@ function s.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCode(EVENT_BE_MATERIAL)
-	e2:SetCountLimit(1,id)
+	e2:SetCountLimit(1,id+100)
 	e2:SetCondition(s.reccon)
 	e2:SetTarget(s.rectg)
 	e2:SetOperation(s.recop)
 	c:RegisterEffect(e2)
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
@@ -48,7 +48,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end
-
 function s.reccon(e,tp,eg,ep,ev,re,r,rp)
 	return r==REASON_SYNCHRO
 end

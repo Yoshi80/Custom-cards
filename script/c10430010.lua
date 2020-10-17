@@ -8,6 +8,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_HAND)
+	e1:SetCountLimit(1,id)
 	e1:SetCost(s.cost)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.operation)
@@ -19,13 +20,13 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_GRAVE)
+	e2:SetCountLimit(1,id+100)
 	e2:SetCondition(s.negcon)
 	e2:SetCost(s.negcost)
 	e2:SetTarget(s.negtg)
 	e2:SetOperation(s.negop)
 	c:RegisterEffect(e2)
 end
-
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:IsDiscardable() end
@@ -46,7 +47,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_FUSION) and c:IsRace(RACE_WINGEDBEAST)
 end
