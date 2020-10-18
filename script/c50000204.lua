@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	-- Ritual Summon
-	Ritual.AddProcEqual(c,aux.FilterBoolFunction(Card.IsSetCard,0x70a),nil,nil,s.extrafil,s.extraop,s.matfil):SetCountLimit(1,id+EFFECT_COUNT_CODE_OATH)
+	Ritual.AddProcEqual(c,aux.FilterBoolFunction(Card.IsSetCard,0x70a),nil,nil,s.extrafil,s.extraop,s.matfil):SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
 	-- to hand
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND)
