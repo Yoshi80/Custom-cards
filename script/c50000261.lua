@@ -34,7 +34,6 @@ function s.desop1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end

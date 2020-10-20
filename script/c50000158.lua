@@ -91,5 +91,5 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.rdop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.HalfBattleDamage(ep)
+	Duel.ChangeBattleDamage(1-tp,ev/2)
 end
