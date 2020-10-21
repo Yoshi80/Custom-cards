@@ -13,7 +13,6 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-
 function s.filter1(c,e,tp)
 	local rk=c:GetRank()
 	return c:IsFaceup() and (rk>0 or c:IsStatus(STATUS_NO_LEVEL)) and Duel.GetLocationCountFromEx(tp,tp,c)>0 

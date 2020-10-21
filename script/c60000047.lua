@@ -28,7 +28,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop2)
 	c:RegisterEffect(e2)
 end
-
 function s.lvlcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
@@ -45,7 +44,6 @@ function s.lvop(e,tp,eg,ep,ev,re,r,rp)
 	if #g==0 then return end
 	Duel.SendtoGrave(g,REASON_EFFECT)
 end
-
 function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end

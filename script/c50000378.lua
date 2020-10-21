@@ -25,7 +25,6 @@ function s.initial_effect(c)
 	e3:SetOperation(s.operation2)
 	c:RegisterEffect(e3)
 end
-
 function s.rmfilter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
@@ -42,7 +41,6 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end
-
 function s.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x64)
 end

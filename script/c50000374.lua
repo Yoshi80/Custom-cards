@@ -24,7 +24,6 @@ function s.initial_effect(c)
     e2:SetOperation(s.thop2)
     c:RegisterEffect(e2)
 end
-
 function s.filter(c)
 	return c:IsSetCard(0x711) and c:IsAbleToHand()
 end
@@ -41,7 +40,6 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end
-
 function s.thcfilter(c,tp)
     return c:GetPreviousControler()==tp and c:IsSetCard(0x711) and c:IsReason(REASON_BATTLE)
 end

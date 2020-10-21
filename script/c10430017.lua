@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
-	e1:SetCountLimit(1,104300171)
+	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
 	c:RegisterEffect(e1)
@@ -20,12 +20,11 @@ function s.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e3:SetCountLimit(1,104300172)
+	e3:SetCountLimit(1,id+100)
 	e3:SetTarget(s.sptg2)
 	e3:SetOperation(s.spop2)
 	c:RegisterEffect(e3)
 end
-
 function s.filter(c,tp)
 	return c:IsCode(69537999) and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
 end
@@ -44,7 +43,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.RaiseEvent(tc,4179255,te,0,tp,tp,Duel.GetCurrentChain())
 	end
 end
-
 function s.spfilter(c,e,tp)
 	return c:IsAttribute(ATTRIBUTE_FIRE) and c:IsAttackBelow(500) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end

@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--shuffle
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(59237154,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetCountLimit(1)
@@ -27,7 +27,6 @@ function s.initial_effect(c)
 	e3:SetOperation(s.operation2)
 	c:RegisterEffect(e3)
 end
-
 function s.thfilter(c)
 	return c:IsSetCard(0x711) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
@@ -41,7 +40,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-
 function s.filter(c)
 	return c:IsFacedown() and c:GetSequence()<5
 end
@@ -53,7 +51,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_MZONE,0,nil)
 	Duel.ShuffleSetCard(g)
 end
-
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()

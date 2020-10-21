@@ -12,7 +12,6 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-
 function s.filter(c,e,tp,zone)
 	return c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP,tp,zone)
 end
