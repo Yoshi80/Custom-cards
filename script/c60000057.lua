@@ -47,7 +47,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5,false,1)
 end
 function s.tgcon(e)
-	return e:GetHandler():IsLinkState()
+	return e:GetHandler():IsLinked()
 end
 function s.lvfilter(c)
 	return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_LINK)

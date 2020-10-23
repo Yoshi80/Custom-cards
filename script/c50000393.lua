@@ -17,12 +17,11 @@ function s.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_TO_GRAVE)
 	e2:SetRange(LOCATION_FZONE)
-	e2:SetCountLimit(1,id+1000)
+	e2:SetCountLimit(1,id+100)
 	e2:SetTarget(s.dctg)
 	e2:SetOperation(s.dcop)
 	c:RegisterEffect(e2)
 end
-
 function s.thfilter(c)
 	return c:IsCode(3734202) and c:IsSSetable()
 end
@@ -45,7 +44,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		g:GetFirst():RegisterEffect(e1)
 	end
 end
-
 function s.cfilter(c,e,tp)
 	return (c:IsRace(RACE_PLANT) or c:GetPreviousRaceOnField()&RACE_PLANT~=0)
 		and c:IsLocation(LOCATION_GRAVE) and c:IsControler(tp)

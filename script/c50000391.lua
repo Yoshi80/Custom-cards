@@ -26,7 +26,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return re:GetHandler():IsType(TYPE_MONSTER) and ep~=tp
 end
@@ -40,7 +39,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
 end
-
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
     local rc=c:GetReasonCard()

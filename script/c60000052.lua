@@ -20,7 +20,7 @@ function s.initial_effect(c)
 	--to grave
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOGRAVE)
-	e3:SetDescription(aux.Stringid(16229315,0))
+	e3:SetDescription(aux.Stringid(id,0))
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCost(s.cost)
@@ -49,7 +49,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e7)
 end
 function s.tgcon(e)
-	return e:GetHandler():IsLinkState()
+	return e:GetHandler():IsLinked()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
