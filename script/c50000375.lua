@@ -37,7 +37,6 @@ function s.initial_effect(c)
 	e4:SetOperation(s.tdop)
 	c:RegisterEffect(e4)
 end
-
 function s.eqlimit(e,c)
 	return c:GetControler()==e:GetHandler():GetControler()
 		and (c:IsSetCard(0x711) and c:IsRace(RACE_ROCK))
@@ -45,7 +44,6 @@ end
 function s.filter(c)
 	return c:IsSetCard(0x711) and c:IsRace(RACE_ROCK)
 end
-
 function s.damcon(e,tp,eg,ep,ev,re,r,rp)
 	local ec=eg:GetFirst()
 	local bc=ec:GetBattleTarget()
@@ -65,7 +63,6 @@ function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 	Duel.Damage(p,tc:GetDefense()/2,REASON_EFFECT)
 end
-
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousLocation(LOCATION_ONFIELD)
