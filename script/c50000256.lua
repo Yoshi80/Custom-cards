@@ -25,7 +25,6 @@ function s.initial_effect(c)
 	e3:SetOperation(s.atop)
 	c:RegisterEffect(e3)
 end
-
 function s.valcheck(e,c)
 	local g=c:GetMaterial()
 	if g:IsExists(Card.IsType,1,nil,TYPE_LINK) then
@@ -37,10 +36,9 @@ end
 function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_TRIBUTE) and e:GetLabel()==1
 end
-
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return aux.bdocon(e,tp,eg,ep,ev,re,r,rp) and c:IsChainAttackable()
+	return aux.bdocon(e,tp,eg,ep,ev,re,r,rp) and c:CanChainAttack()
 		and c:GetBattleTarget():IsType(TYPE_LINK)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)

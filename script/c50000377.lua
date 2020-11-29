@@ -33,7 +33,6 @@ function s.initial_effect(c)
 	e4:SetOperation(s.atop)
 	c:RegisterEffect(e4)
 end
-
 function s.otfilter(c)
 	return c:IsRace(RACE_BEASTWARRIOR) and c:IsAttribute(ATTRIBUTE_LIGHT)
 end
@@ -55,10 +54,9 @@ end
 function s.distarget(e,c)
 	return true
 end
-
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return Duel.GetAttacker()==c and aux.bdocon(e,tp,eg,ep,ev,re,r,rp) and c:IsChainAttackable()
+	return Duel.GetAttacker()==c and aux.bdocon(e,tp,eg,ep,ev,re,r,rp) and c:CanChainAttack()
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChainAttack()

@@ -64,7 +64,7 @@ end
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
-	return bc:IsType(TYPE_MONSTER) and c:IsChainAttackable() and c:IsStatus(STATUS_OPPO_BATTLE) and e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,60000028)
+	return bc:IsType(TYPE_MONSTER) and c:CanChainAttack() and c:IsStatus(STATUS_OPPO_BATTLE) and e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,60000028)
 end
 function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end

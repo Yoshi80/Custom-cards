@@ -37,7 +37,7 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return Duel.GetAttacker()==c and c:IsChainAttackable()
+	return Duel.GetAttacker()==c and c:CanChainAttack()
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChainAttack()
