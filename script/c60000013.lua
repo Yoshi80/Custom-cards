@@ -21,7 +21,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.repop)
 	c:RegisterEffect(e2)
 end
-
 function s.filter(c)
 	return c:IsRace(RACE_FAIRY) and c:IsLevelAbove(8) and c:IsAbleToHand()
 end
@@ -38,7 +37,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end
-
 function s.repfilter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsReason(REASON_BATTLE)
 		and c:IsRace(RACE_FAIRY) and c:GetLevel()==8
