@@ -11,7 +11,6 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-
 function s.cfilter(c)
 	return c:IsFacedown() or not (c:IsAttribute(ATTRIBUTE_WATER) and c:IsType(TYPE_LINK))
 end

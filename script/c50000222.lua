@@ -43,7 +43,6 @@ function s.initial_effect(c)
 	e5:SetOperation(s.desop)
 	c:RegisterEffect(e5)
 end
-
 function s.atktg(e,c)
 	return true
 end
@@ -60,7 +59,6 @@ function s.value(e,c)
 	end
 	return att*200
 end
-
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsSummonType(SUMMON_TYPE_TRIBUTE)
@@ -68,7 +66,6 @@ end
 function s.indval(e,re,tp)
 	return tp~=e:GetHandlerPlayer()
 end
-
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_MZONE,0,1,nil)

@@ -37,7 +37,6 @@ function s.initial_effect(c)
 	e3:SetOperation(s.rop)
 	c:RegisterEffect(e3)
 end
-
 function s.lvlcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
@@ -54,7 +53,6 @@ function s.lvop(e,tp,eg,ep,ev,re,r,rp)
 	if #g==0 then return end
 	Duel.SendtoGrave(g,REASON_EFFECT)
 end
-
 function s.filter(c)
 	return c:IsFaceup() and c:IsCode(56840427)
 end
@@ -92,7 +90,6 @@ end
 function s.eqlimit(e,c)
 	return c==e:GetLabelObject()
 end
-
 function s.rcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_COST)~=0 and re:IsHasType(0x7e0) and re:IsActiveType(TYPE_XYZ)
 		and ep==e:GetOwnerPlayer() and e:GetHandler():GetEquipTarget()==re:GetHandler() and re:GetHandler():GetOverlayCount()>=ev-1
