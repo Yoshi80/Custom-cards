@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
-	Synchro.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x7e),1,1,Synchro.NonTuner(nil),1,99)
+	Synchro.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x107e),1,1,Synchro.NonTuner(nil),1,99)
 	c:EnableReviveLimit()
 	c:SetUniqueOnField(1,0,id)
 	--lv
@@ -45,7 +45,7 @@ function s.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
 function s.tgfilter(c,lv)
-	return c:IsSetCard(0x7e) and c:IsAbleToGrave() 
+	return c:IsSetCard(0x107e) and c:IsAbleToGrave() 
 end
 function s.lvop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
@@ -96,7 +96,7 @@ function s.rcon(e,tp,eg,ep,ev,re,r,rp)
 		and Duel.IsExistingMatchingCard(s.repfilter,tp,LOCATION_GRAVE,0,1,c)
 end
 function s.repfilter(c)
-	return c:IsSetCard(0x7e) and c:IsAbleToRemove() and aux.SpElimFilter(c,true)
+	return c:IsSetCard(0x107e) and c:IsAbleToRemove() and aux.SpElimFilter(c,true)
 end
 function s.rop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=bit.band(ev,0xffff)

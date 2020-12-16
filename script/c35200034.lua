@@ -37,7 +37,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function s.filter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x7e,lc,sumtype,tp)
+	return c:IsSetCard(0x107e,lc,sumtype,tp)
 end
 function s.spcheck(g,lc,tp)
 	return g:CheckSameProperty(Card.GetLevel,lc,SUMMON_TYPE_LINK,tp)
@@ -53,7 +53,7 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function s.mfilter(c)
-	return c:IsSetCard(0x7e) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x107e) and c:IsType(TYPE_MONSTER)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end

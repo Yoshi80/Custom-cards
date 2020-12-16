@@ -45,7 +45,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,Duel.GetLP(tp)-1000)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x7e) and c:IsAbleToHand()
+	return c:IsSetCard(0x107e) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
