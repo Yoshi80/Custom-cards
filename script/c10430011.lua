@@ -29,7 +29,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsReleasable() end
 	Duel.Release(e:GetHandler(),REASON_COST)
@@ -62,7 +61,6 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 		tc=g:GetNext()
 	end
 end
-
 function s.cfilter(c)
 	return not c:IsStatus(STATUS_BATTLE_DESTROYED)
 end
