@@ -22,7 +22,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-
 function s.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x710)
 end
@@ -39,7 +38,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		tc:AddCounter(0x1148,2)
 	end
 end
-
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,0) and Duel.IsCanRemoveCounter(tp,1,1,0x1148,1,REASON_COST) end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
