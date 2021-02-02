@@ -35,7 +35,6 @@ function s.initial_effect(c)
 	e3:SetCondition(s.actcon)
 	c:RegisterEffect(e3)
 end
-
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
@@ -54,14 +53,12 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,tc)
 	end
 end
-
 function s.antarget(e,c)
 	return c:IsRace(RACE_DRAGON) and c:IsAttribute(ATTRIBUTE_EARTH) and c~=e:GetHandler()
 end
 function s.indval(e,re,tp)
 	return e:GetHandlerPlayer()==1-tp
 end
-
 function s.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
 end
